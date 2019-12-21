@@ -74,6 +74,7 @@ class GetStudentService(Service):
     def process(self):
         pk = self.data.get('pk')
         if pk:
+
             student_get = Student.objects.get(id=pk)
         else:
             student_get = Student.objects.all()
