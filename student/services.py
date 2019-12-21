@@ -59,12 +59,14 @@ class CreateStudentService(Service):
             branch=student_data.get("branch"),
             date_of_birth=student_data.get("date_of_birth"),
             username=student_data.get("username"),
-            password=student_data.get("password"),
+            # password=student_data.get("password"),
             email=student_data.get("email"),
             address=student_data.get("address"),
             last_login=student_data.get("last_login"),
 
         )
+        student_obj.set_password("password")
+        student_obj.save()
         return student_obj
 
 
