@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from .models import *
 
 
@@ -13,10 +12,6 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = "__all__"
-        # extra_kwargs={
-        #     'username':{'default':'username'},
-        #     'password':{'default':'password'}
-        #              }
 
 
 class CollegeSerializer(serializers.ModelSerializer):
@@ -24,4 +19,4 @@ class CollegeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = College
-        fields = ['id', 'clg_name', 'city', 'state', 'student']
+        fields = ['id', 'clg_name', 'city', 'state', 'college_student']

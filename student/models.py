@@ -12,7 +12,7 @@ class College(models.Model):
 
 
 class Student(AbstractUser):
-    college_name = models.ForeignKey(College, related_name='student', on_delete=models.CASCADE, null=True)
+    college_name = models.ForeignKey(College, related_name='college_student', on_delete=models.CASCADE, null=True)
     branch = models.CharField(max_length=100, null=True)
     date_of_birth = models.DateField(null=True)
     address = models.TextField(max_length=100, null=True)

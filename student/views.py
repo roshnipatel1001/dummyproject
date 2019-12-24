@@ -1,18 +1,19 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from .models import College, Student
-from .serializers import CollegeSerializer, StudentSerializer, CollegeSerializer1
+from rest_framework.permissions import IsAuthenticated
+from .serializers import *
 from .services import CreateCollegeService, GetCollegeService, DeleteCollegeService, PutCollegeService, \
     CreateStudentService, GetStudentService, DeleteStudentService, PutStudentService
 
 
 class CollegeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         data = request.data
-        clg_serializer = CollegeSerializer1(data=request.data)
+        clg_serializer = CollegeSerializer(data=request.data)
         if clg_serializer.is_valid(raise_exception=True):
-            CreateCollegeService.execute({"data": request.data})
+            CreateCollegeService.execute({'data': request.data})
             return Response(clg_serializer.data, status=201)
         return Response(clg_serializer.errors, status=400)
 
@@ -39,11 +40,13 @@ class CollegeView(APIView):
 
 
 class StudentView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         data = request.data
         student_serializer = StudentSerializer(data=request.data)
         if student_serializer.is_valid(raise_exception=True):
-            college_name = CreateStudentService.execute({'data':request.data})
+            college_name = CreateStudentService.execute({'data': request.data})
             student_serializer = StudentSerializer(college_name)
             return Response(student_serializer.data, status=201)
         return Response(student_serializer.errors, status=400)
@@ -66,7 +69,5 @@ class StudentView(APIView):
         student_serializer = StudentSerializer(student_update, data=request.data)
         if student_serializer.is_valid(raise_exception=True):
             PutStudentService.execute({'student_update': student_update, 'data': request.data})
-            return Response(student_serializer.data,status=201)
-        return Response(student_serializer.errors,status=400)
-
-
+            return Response(student_serializer.data, status=201)
+        return Response(student_serializer.errors, status=400)

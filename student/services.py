@@ -1,6 +1,4 @@
 from service_objects.services import Service
-from sqlparse.tokens import String
-
 from .serializers import *
 
 
@@ -74,7 +72,6 @@ class GetStudentService(Service):
     def process(self):
         pk = self.data.get('pk')
         if pk:
-
             student_get = Student.objects.get(id=pk)
         else:
             student_get = Student.objects.all()
@@ -98,7 +95,7 @@ class PutStudentService(Service):
         branch = all_data.get("branch")
         DOB = all_data.get("date_of_birth")
         uname = all_data.get("username")
-        password = all_data.get("password")
+        # password = all_data.get("password")
         address = all_data.get("address")
         email = all_data.get("email")
         last_login = all_data.get("last_login")
@@ -108,7 +105,7 @@ class PutStudentService(Service):
         student_new.branch = branch
         student_new.date_of_birth = DOB
         student_new.username = uname
-        student_new.password = password
+        # student_new.password = password
         student_new.address = address
         student_new.email = email
         student_new.last_login = last_login
