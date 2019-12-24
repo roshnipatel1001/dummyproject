@@ -1,1 +1,1 @@
-web: gunicorn college.wsgi --log-file -
+web: gunicorn college.wsgi
