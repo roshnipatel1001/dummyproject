@@ -8,9 +8,9 @@ Function views
     2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(),                                                                                   e='home')
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
+    1. Import the include() function: from django.conf.u              rls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
@@ -21,6 +21,5 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('', include('student.urls')),
     url(r'^admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth')
-
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

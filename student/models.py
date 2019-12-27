@@ -8,14 +8,16 @@ class College(models.Model):
     state = models.CharField(max_length=100)
 
     class Meta:
-        db_table = 'College'
+        db_table = "College"
 
 
 class Student(AbstractUser):
-    college_name = models.ForeignKey(College, related_name='college_student', on_delete=models.CASCADE, null=True)
+    college_name = models.ForeignKey(
+        College, related_name="college_student", on_delete=models.CASCADE, null=True
+    )
     branch = models.CharField(max_length=100, null=True)
     date_of_birth = models.DateField(null=True)
     address = models.TextField(max_length=100, null=True)
 
     class Meta:
-        db_table = 'Student'
+        db_table = "Student"

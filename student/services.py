@@ -1,20 +1,24 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from service_objects.services import Service
+
 from .serializers import *
 
 
 class CreateCollegeService(Service):
     def process(self):
         all_data = self.data.get("data")
-        clg_obj = College.objects.create(clg_name=all_data.get("clg_name"),
-                                         city=all_data.get("city"),
-                                         state=all_data.get("state")
-                                         )
+        clg_obj = College.objects.create(
+            clg_name=all_data.get("clg_name"),
+            city=all_data.get("city"),
+            state=all_data.get("state"),
+        )
         return clg_obj
 
 
 class GetCollegeService(Service):
     def process(self):
-        pk = self.data.get('pk')
+        pk = self.data.get("pk")
         if pk:
             clg_get = College.objects.get(id=pk)
         else:
@@ -24,7 +28,7 @@ class GetCollegeService(Service):
 
 class DeleteCollegeService(Service):
     def process(self):
-        pk = self.data.get('pk')
+        pk = self.data.get("pk")
         Clg_dlt = College.objects.get(pk=pk)
         Clg_dlt.delete()
 
@@ -32,11 +36,11 @@ class DeleteCollegeService(Service):
 class PutCollegeService(Service):
     def process(self):
         all_data = self.data.get("data")
-        pk = all_data.get('id')
+        pk = all_data.get("id")
         college_new = College.objects.get(pk=pk)
-        name = all_data.get('clg_name')
-        city = all_data.get('city')
-        state = all_data.get('state')
+        name = all_data.get("clg_name")
+        city = all_data.get("city")
+        state = all_data.get("state")
 
         college_new.clg_name = name
         college_new.city = city
@@ -57,20 +61,22 @@ class CreateStudentService(Service):
             branch=student_data.get("branch"),
             date_of_birth=student_data.get("date_of_birth"),
             username=student_data.get("username"),
-            # password=student_data.get("password"),
             email=student_data.get("email"),
             address=student_data.get("address"),
             last_login=student_data.get("last_login"),
-
         )
-        student_obj.set_password("password")
+        student_obj.set_password(student_data.get("password"))
         student_obj.save()
+        to_email = student_obj.email
+        subject = "this is your subject"
+        message = "Here is message"
+        send_mail(subject, message, from_email=settings.EMAIL_HOST_USER,recipient_list=[to_email], html_message=message)
         return student_obj
 
 
 class GetStudentService(Service):
     def process(self):
-        pk = self.data.get('pk')
+        pk = self.data.get("pk")
         if pk:
             student_get = Student.objects.get(id=pk)
         else:
@@ -80,7 +86,7 @@ class GetStudentService(Service):
 
 class DeleteStudentService(Service):
     def process(self):
-        pk = self.data.get('pk')
+        pk = self.data.get("pk")
         student_dlt = Student.objects.get(pk=pk)
         student_dlt.delete()
 
@@ -88,7 +94,7 @@ class DeleteStudentService(Service):
 class PutStudentService(Service):
     def process(self):
         all_data = self.data.get("data")
-        pk = all_data.get('id')
+        pk = all_data.get("id")
         student_new = Student.objects.get(id=pk)
         fname = all_data.get("first_name")
         lname = all_data.get("last_name")
