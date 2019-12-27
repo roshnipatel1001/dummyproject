@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.mail import send_mail
+from django.http import HttpResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -14,6 +15,7 @@ from .services import (
     DeleteStudentService,
     PutStudentService,
 )
+from .tasks import send_email_task
 
 
 class CollegeView(APIView):
@@ -50,15 +52,14 @@ class CollegeView(APIView):
 
 
 class SendEmailView(APIView):
-    def post(self, request, pk=None):
-        email_msg = request.data.get("message")
-        email_sub = request.data.get("subject")
-        std = Student.objects.all()
-
-        for student in std:
-            email = student.email
-            send_mail(email_sub, email_msg, email ,recipient_list=[email])
-
+    def get(self, request, pk=None):
+        student = Student.objects.all()
+        for student_data in student:
+            from_email = settings.EMAIL_HOST_USER
+            to_email = student_data.email
+            send_mail('Celery Task Worked!!!!!!!!',
+                      'This is proof the task worked in users!', from_email, [to_email],
+                      fail_silently=False, html_message='This is proof the task worked!')
         return Response(data={"Message": "success"}, status=200)
 
 
@@ -96,3 +97,8 @@ class StudentView(APIView):
             )
             return Response(student_serializer.data, status=201)
         return Response(student_serializer.errors, status=400)
+
+
+def index(self):
+    send_email_task()
+    return HttpResponse("all done")
