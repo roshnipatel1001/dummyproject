@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from service_objects.services import Service
-
 from .serializers import *
 
 
@@ -70,7 +69,8 @@ class CreateStudentService(Service):
         to_email = student_obj.email
         subject = "this is your subject"
         message = "Here is message"
-        send_mail(subject, message, from_email=settings.EMAIL_HOST_USER,recipient_list=[to_email], html_message=message)
+        send_mail(subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[to_email],
+                  html_message=message)
         return student_obj
 
 

@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -47,10 +49,21 @@ class CollegeView(APIView):
         return Response(clg_serializer.errors, status=400)
 
 
+class SendEmailView(APIView):
+    def post(self, request, pk=None):
+        email_msg = request.data.get("message")
+        email_sub = request.data.get("subject")
+        std = Student.objects.all()
+
+        for student in std:
+            email = student.email
+            send_mail(email_sub, email_msg, email ,recipient_list=[email])
+
+        return Response(data={"Message": "success"}, status=200)
+
+
 class StudentView(APIView):
     # permission_classes = (IsAuthenticated,)
-
-
 
     def post(self, request):
         data = request.data
