@@ -129,3 +129,5 @@ EMAIL_HOST_USER = 'roshnipatel0021@gmail.com'
 EMAIL_HOST_PASSWORD = 'Roshni1001@'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+CELERY_BROKER_URL = 'amqp://localhost'
