@@ -7,6 +7,9 @@ class College(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.clg_name
+
     class Meta:
         db_table = "College"
 

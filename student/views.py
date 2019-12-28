@@ -19,7 +19,7 @@ from .tasks import send_email_task
 
 
 class CollegeView(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         data = request.data

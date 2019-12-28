@@ -53,7 +53,6 @@ class CreateStudentService(Service):
     def process(self):
         student_data = self.data.get("data")
         clg_obj = College.objects.get(clg_name=student_data.get("college_name"))
-        clg_name=clg_obj.clg_name
         student_obj = Student.objects.create(
             college_name=clg_obj,
             first_name=student_data.get("first_name"),

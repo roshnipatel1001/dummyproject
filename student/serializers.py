@@ -2,13 +2,15 @@ from rest_framework import serializers
 from .models import *
 
 
-class CollegeSerializer1(serializers.ModelSerializer):
-    class Meta:
-        model = College
-        fields = "__all__"
+# class CollegeSerializer1(serializers.ModelSerializer):
+#     class Meta:
+#         model = College
+#         fields = "__all__"
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    college_name = serializers.StringRelatedField()
+
     class Meta:
         model = Student
         fields = "__all__"
@@ -24,8 +26,3 @@ class CollegeSerializer(serializers.ModelSerializer):
     class Meta:
         model = College
         fields = ["id", "clg_name", "city", "state", "college_student"]
-
-
-class EmailSerializer(serializers.ModelSerializer):
-    message = models.CharField(max_length=100)
-    subject = models.CharField(max_length=50)
