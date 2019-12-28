@@ -15,4 +15,3 @@ def send_email_task():
                   'This is proof the task worked in all users!', from_email, [to_email],
                   fail_silently=False, html_message='This is proof the task worked!')
     return None
-

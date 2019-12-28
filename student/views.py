@@ -100,5 +100,5 @@ class StudentView(APIView):
 
 
 def index(self):
-    send_email_task()
+    send_email_task.delay()
     return HttpResponse("all done")
