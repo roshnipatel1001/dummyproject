@@ -24,3 +24,5 @@ class Student(AbstractUser):
 
     class Meta:
         db_table = "Student"
+
+
