@@ -10,6 +10,9 @@ class College(models.Model):
     def __str__(self):
         return self.clg_name
 
+    def get_city(self):
+        return self.clg_name + ' belongs to ' + self.city + ' city.'
+
     class Meta:
         db_table = "College"
 

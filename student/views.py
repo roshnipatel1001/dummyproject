@@ -23,6 +23,7 @@ class CollegeView(APIView):
 
     def post(self, request):
         data = request.data
+
         clg_serializer = CollegeSerializer(data=request.data)
         if clg_serializer.is_valid(raise_exception=True):
             CreateCollegeService.execute({"data": request.data})
@@ -93,8 +94,7 @@ class StudentView(APIView):
         student_serializer = StudentSerializer(student_update, data=request.data)
         if student_serializer.is_valid(raise_exception=True):
             PutStudentService.execute(
-                {"student_update": student_update, "data": request.data}
-            )
+                {"student_update": student_update, "data": request.data})
             return Response(student_serializer.data, status=201)
         return Response(student_serializer.errors, status=400)
 
@@ -102,3 +102,9 @@ class StudentView(APIView):
 def index(self):
     send_email_task.delay()
     return HttpResponse("all done")
+
+# worked on dummyproject
+# write api test case for create method of College model
+# write api test case for get method of College model
+# read about how to write test cases for nested serializer
+# create test_serializer.py file

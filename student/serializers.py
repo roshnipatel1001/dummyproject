@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 
-# class CollegeSerializer1(serializers.ModelSerializer):
-#     class Meta:
-#         model = College
-#         fields = "__all__"
-
-
 class StudentSerializer(serializers.ModelSerializer):
     college_name = serializers.StringRelatedField()
 
@@ -26,3 +20,5 @@ class CollegeSerializer(serializers.ModelSerializer):
     class Meta:
         model = College
         fields = ["id", "clg_name", "city", "state", "college_student"]
+
+
