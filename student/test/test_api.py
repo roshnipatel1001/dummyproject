@@ -41,13 +41,14 @@ class CollegeTests(APITestCase):
 class StudentTests(APITestCase):
     def setUp(self):
         self.college = College.objects.create(clg_name='sait', city='indore', state='mp')
-        self.student = Student.objects.create(college_name=self.college, branch='cs', address='sanawad',
+        college=self.college
+        self.student = Student.objects.create(college_name=college, branch='cs', address='sanawad',
                                               date_of_birth='1998-01-10', first_name='roshni', last_name='patel',
                                               username='admin123')
 
     def test_create_student(self):
         """
-        Ensure we can create a new college object.
+        Ensure we can create a new student object.
         """
 
         url = '/student/'
@@ -59,7 +60,7 @@ class StudentTests(APITestCase):
 
         # def test_get_clg(self):
         """
-        Ensure we can get a college objects.
+        Ensure we can get a student objects.
         """
         # url = '/clg/'
         response1 = self.client.get(url)

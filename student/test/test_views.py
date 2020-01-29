@@ -44,12 +44,17 @@ class StudentViewTest(TestCase):
         """
         Test post requests
         """
-        clg_obj = CollegeFactory(clg_name='astral')
+        clg_obj = CollegeFactory(clg_name='sims')
         # Create the request
         data = {
             'college_name': clg_obj,
             'branch': 'dfghjk ',
             'address': 'sanawad',
+            'username': 'dfghjk',
+            'first_name': 'monika',
+            'last_name': 'birla',
+            'email': 'birla@gamil.com',
+            'date_of_birth': '1998-01-10',
 
         }
 
@@ -57,11 +62,10 @@ class StudentViewTest(TestCase):
         request.data = self.student
         # Get the response
         response = StudentView.as_view()(request)
-
         self.assertEqual(response.status_code, 201)
         # Check save was called
         self.assertTrue(Student.save.called)
-        self.assertEqual(Student.save.call_count, 1)
+        self.assertEqual(Student.save.call_count, 2)
 
 
 class CollegeGetTest(TestCase):
@@ -100,7 +104,7 @@ class CollegeGetTest(TestCase):
 
 class StudentGetTest(TestCase):
     """
-    Test the snippet create view
+    Test the student create view
     """
 
     def setUp(self):
