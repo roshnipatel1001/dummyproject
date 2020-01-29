@@ -103,8 +103,3 @@ def index(self):
     send_email_task.delay()
     return HttpResponse("all done")
 
-# worked on dummyproject
-# write api test case for create method of College model
-# write api test case for get method of College model
-# read about how to write test cases for nested serializer
-# create test_serializer.py file
